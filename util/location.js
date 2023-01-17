@@ -5,6 +5,6 @@ export function getMapPreview(latitude, longitude) {
   return imagePreviewUrl;
 }
 
-export async function getAddress(lat, lng){
-    
+export async function getAddress(lat, lng) {
+  return "Address Of this Place";
 }
