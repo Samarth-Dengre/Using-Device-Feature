@@ -29,8 +29,8 @@ export function init() {
 }
 
 export function insertPlace(place) {
-  const promise = new Promise((resolve, reject) => {
-    database.transaction((tx) => {
+  return new Promise(async (resolve, reject) => {
+    await database.transaction((tx) => {
       tx.executeSql(
         `INSERT INTO places (title, imageUri, address, lat, lng) values (?, ?, ?, ?, ?)`,
         [
@@ -52,8 +52,8 @@ export function insertPlace(place) {
 }
 
 export async function fetchPlaces() {
-  const promise = new Promise((resolve, reject) => {
-    database.transaction((tx) => {
+  return new Promise(async (resolve, reject) => {
+    await database.transaction((tx) => {
       tx.executeSql(
         `SELECT * FROM places`,
         [],
@@ -74,6 +74,24 @@ export async function fetchPlaces() {
             );
           }
           resolve(places);
+        },
+        (_, error) => {
+          reject(error);
+        }
+      );
+    });
+  });
+}
+
+export function fetchPlaceDetails(placeId) {
+  return new Promise(async (resolve, reject) => {
+    await database.transaction((tx) => {
+      tx.executeSql(
+        `SELECT * FROM places
+         WHERE id=${placeId}`,
+        [],
+        (_, result) => {
+          resolve(result.rows._array[0]);
         },
         (_, error) => {
           reject(error);

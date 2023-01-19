@@ -4,8 +4,11 @@ import { Colors } from "../../Constants/colors";
 
 function PlaceItem({ place, onSelect }) {
   return (
-    <Pressable onPress={onSelect} style={({pressed}) => [styles.item, pressed && styles.pressed]}>
-      <Image source={{ uri: place.imageUri }} style={styles.image}/>
+    <Pressable
+      onPress={onSelect.bind(this, place.id)}
+      style={({ pressed }) => [styles.item, pressed && styles.pressed]}
+    >
+      <Image source={{ uri: place.imageUri }} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.title}>{place.title}</Text>
         <Text style={styles.address}>{place.address}</Text>
@@ -32,19 +35,19 @@ const styles = StyleSheet.create({
     flex: 1,
     borderBottomLeftRadius: 4,
     borderTopLeftRadius: 4,
-    height: 170
+    height: 170,
   },
   info: {
     flex: 1.2,
-    padding: 12
+    padding: 12,
   },
   title: {
     fontWeight: "bold",
     fontSize: 18,
-    color: Colors.gray700
+    color: Colors.gray700,
   },
   address: {
     fontSize: 12,
-    color: Colors.gray700
+    color: Colors.gray700,
   },
 });
